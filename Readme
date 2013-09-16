@@ -1,0 +1,20 @@
+Project Name: Straight-Line Program Interpreter
+Project Specification: 
+  Please See PROGRAM Section, Chapter One, Modern Compiler Implementation in C.
+  (Page 12 for English Version, Page Idontknow for Chinese Version.:))
+
+Due Date: 23:59, 21th September, 2013 AD
+Submission: make a tallball, e.g. 10302010001.tar, which contains all necessary source
+files and a document. Submission to ftp://10.132.141.33/classes/10/121 ±‡“Î‘≠¿Ì/WORK_UPLOAD/project_0
+You should all use the same format: 
+First put all the files you need to submit in the directory named by your student 
+number, e.g. 10302010001.
+Second come to the parent directory of 10302010001, and use the following command
+"tar cvf 10302010001.tar 10302010001"
+to compress it to 10302010001.tar.
+
+Note: Standard Test Platform is Linux version 2.6.32-5-amd64 (Debian 2.6.32-31). Supplemental Test Case and Reference Output
+will be found in testCaseForP0.tar.gz.
+
+TA in Charge: Xiao Wei (Uninstall)  wei_xiao@fudan.edu.cn
+
