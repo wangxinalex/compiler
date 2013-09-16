@@ -66,29 +66,29 @@ A_table interpStm(A_stm prog, A_table table){
 	return table;
 }
 struct IntAndTable interpExp( A_exp exp, A_table table){
-	struct IntAndTable i_a_t;
+	struct IntAndTable iat;
 	if(exp->kind == A_numExp){
-		i_a_t.i = exp->u.num;
-		i_a_t.t = table;
-		return i_a_t;
+		iat.i = exp->u.num;
+		iat.t = table;
+		return iat;
 	}else if(exp->kind == A_idExp){
 		int val = lookup(exp->u.id, table);
-		i_a_t.i = val;
-		i_a_t.t = table;
-		return i_a_t;
+		iat.i = val;
+		iat.t = table;
+		return iat;
 	}else if(exp->kind == A_opExp){
-		struct IntAndTable l_i_a_t, r_i_a_t, f_i_a_t;
-		l_i_a_t = interpExp(exp->u.op.left, table);
-		r_i_a_t = interpExp(exp->u.op.right, l_i_a_t.t);
-		f_i_a_t.i = calculate(l_i_a_t.i, r_i_a_t.i, exp->u.op.oper);
-		f_i_a_t.t = r_i_a_t.t;
-		return f_i_a_t;
+		struct IntAndTable left_iat, right_iat, final_iat;
+		left_iat = interpExp(exp->u.op.left, table);
+		right_iat = interpExp(exp->u.op.right, left_iat.t);
+		final_iat.i = calculate(left_iat.i, right_iat.i, exp->u.op.oper);
+		final_iat.t = right_iat.t;
+		return final_iat;
 	}else if(exp->kind == A_eseqExp){
-		i_a_t.t = interpStm(exp->u.eseq.stm, table);
-		i_a_t = interpExp(exp->u.eseq.exp, i_a_t.t);
-		return i_a_t;
+		iat.t = interpStm(exp->u.eseq.stm, table);
+		iat = interpExp(exp->u.eseq.exp, iat.t);
+		return iat;
 	}
-	return i_a_t;
+	return iat;
 }
 
 int lookup(string s, A_table t){
