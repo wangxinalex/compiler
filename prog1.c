@@ -54,11 +54,25 @@ A_stm error_prog(void)
 	 	A_CompoundStm( stm1, A_AssignStm("a", A_IdExp("c")));
  
 }
-// print (a,a,a-1)
+// a = 5 + 3; b = (print(a, a-1), 10*a); print b;
+// a = 5 + b; b = (print(a, a, a-1), 10*a); print b;
+// c = a * b;
+A_stm complex_prog(void){
+     A_stm stm1 = prog_prog();
+	return A_CompoundStm(stm1, A_AssignStm("c", A_OpExp(A_IdExp("a"), A_times, A_IdExp("b"))));
+	
+}
+// print (a,a+2,a,a-1)
 A_stm simple_prog(void){
-	return  A_PrintStm(A_PairExpList(A_IdExp("a"),A_PairExpList(A_OpExp(A_IdExp("a"), A_plus, A_NumExp(2)),
+	return  A_PrintStm(A_PairExpList(A_IdExp("a"),A_PairExpList(A_OpExp(A_IdExp("a"), A_plus, A_NumExp(2)),A_PairExpList(A_IdExp("a"),
                  A_LastExpList(A_OpExp(A_IdExp("a"), A_minus, 
-                                       A_NumExp(1))))));
-
+                                       A_NumExp(1)))))));
+}
+//print (a, a+2, a, a-1)
+//print (b, b+1)
+A_stm middle_prog(void){
+	A_stm stm1 = simple_prog();
+	return A_CompoundStm(stm1, A_PrintStm(A_PairExpList(A_IdExp("b"),
+				   A_LastExpList(A_OpExp(A_IdExp("b"), A_plus, A_NumExp(1))))));
 
 }
