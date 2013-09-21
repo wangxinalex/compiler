@@ -35,7 +35,7 @@ int maxargs(A_stm prog, int *max){
 			maxargs(ex_prog, max);
 		}
 	//print statements
-	}else{
+	}else if(prog->kind == A_printStm){
 		A_expList list = prog->u.print.exps;
 		while(list->kind != A_lastExpList){
 			args++;
@@ -185,8 +185,8 @@ int main(){
 
 	//error statements
 	//initialize the global variables
-	global_table = NULL;
 	max_args = 0;
+	global_table = NULL;
 	A_stm error_stm = error_prog();
 	maxargs(error_stm, &max_args);
 	printf(">> Error Prog Section:\n");

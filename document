@@ -1,0 +1,10 @@
+1.In maxargs(), the function takes a A_stm and a pointer to integer as arguments. The function recursively examine the statements.
+If it is a compound statemet, recursively check the first and the second statement. 
+If it is an assignment statement, we just focus on the eseqExp in case that it includes print statement
+If it is a print statement, check the expList to calculate the number of arguments. The external variable "max" was used to store the maximum number of arguments.
+
+2.In InterpStm(), the function recursively calls itself and function interpExp(). The identifier and value of each variables was stored in a linked-list structure "A_Table". 
+If it is a compound statemet, recursively check the first and the second statement. 
+If it is an assignment statement, check the expression by interpExp(), which returns a structure "IntAndTable". For the assignment expression could also contain eseqStm which may change the value of variables, therefore we must take the change of variable table into consideration. Each time an assignment statement is handled, the table of variables could be changed by side-effect assignment contained in the current assignment.
+If it is a print assignment, we only concentrate on the eseqExp which may contain side-effect assignment.
+After this, the global table will store the value of each variable in decreasing order of program sequence. That is, the latest value will be stored in the front of the list. Hence we only need to print the variable when it firstly appeared.
