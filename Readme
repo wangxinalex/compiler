@@ -1,0 +1,6 @@
+Int this lab, we need to finish the lexical analyzer generator of Tiger language.
+In file driver.c there are many useful tokennames including reserved words, parentheses and other 
+lexical elements. The first thing we got to do is identify them in tiger.lex and return right tokenname. The continuous digits will be identified as number and words except for reserved words will be identified as IDs.
+Next, we have to handle the comments defined between "/*" and "*/". We need to add a new state in DFA "COMMENT", any word in COMMENT state will not be identified except for the end identifier of COMMENT sate "*/".
+The most miscellaneous part is the strings. We need to handle the continuous characters between "".We need to parse escape characters("\n", "\t", "\ddd") and control characters("^c", "^d") carefully according to the guidance of Tiger language. When we meet sequence like "\f__f\", which in regular expression "\\[[:space:]]+\\", we should ignore the format characters between them.
+Moreover, the beginning position of a string is the position of the left quote while both the left and the right quote should be included in the characters sequence of the program text, hence we should adjust the position of strings in a different way.
