@@ -1,9 +1,0 @@
-
-[Test Case Description]:
-1\ substitute your prog1.c & prog1.h
-2\ apply maxargs & interpStm to right_prog, then apply them to error_prog.
-3\ make sure that your output is the same as reference output.
-
-[Reference Ouput]: ref.txt
-[Tool Script]:	gradeMe.sh
-
