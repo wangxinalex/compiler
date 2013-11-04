@@ -1,28 +1,11 @@
-Project Name: Parsing & Abstract Syntax
-Project Specification: 
-  Please See PROGRAM Section, Chapter Tree & Four, Modern Compiler Implementation in C.
-  (Page 82 & 101 for English Version, Page Youknow for Chinese Version.:))
-
-  
-Due Date: 23:59, 10, November, 2013 AD
-
-Submission: make a tallball, e.g. 10302010001.tar, which contains all source files 
-in project-2 directory and a document. 
-
-Submission to ftp://10.132.141.33/classes/10/131 ±‡“Î‘≠¿Ì/WORK_UPLOAD/project_2
-
-You should all use the same format: 
-First put all the files you need to submit in the project-2 directory named by your student 
-number, e.g. 10302010001.
-Second come to the parent directory of 10302010001, and use the following command
-"tar cvf 10302010001.tar 10302010001"
-to compress it to 10302010001.tar.
-
-
-Note: Compiling Error means Zero Point & Standard Test Platform is Linux version 2.6.32-5-amd64 (Debian 2.6.32-31).
-Make sure that your output is the same as reference output.
-
-WARNING: COPY FROM OTHERS WILL BOTH GET ZERO!
-
-
-TA in Charge: Xiao Wei (Uninstall)  wei_xiao@fudan.edu.cn
+/*========================================================================
+#   FileName: document
+#     Author: wangxinalex
+#      Email: wangxinalex@gmail.com
+#   HomePage: http://singo.10ss.me
+# LastChange: 2013-11-03 22:19:49
+========================================================================*/
+In this lab, we need to implement abstract syntax of Tiger language by adding some semantic actions in tiger.grm. This file gives some grammar rules by which the parser will reduce the language input. 
+Generally, the data structure of different syntax elements was defined in absyn.h. It comprises expressions, variables, declarations, expression lists, field lists and so on. We need to fill in these data structures according to different input sequence. 
+First we need to define these types in %union; put terminals in %token and define nonterminals in %type which are also the global variables in this file. The precedence directives will instruct the precedence and association of some operators.
+When defining syntax actions, we need to handle some subtle situations resulting from shift/reduce conflict. For instance, the Subscript variable and the array expressions since the parser always prefers to shift when facing a shift/reduce conflict, thus we need to put a rule which does not require a reduce to resolve the confilct otherwise the parser will reduce the subscript variable as an array expression and generate a syntax error. Some other conflicts was due to different syntax environments such as the expression list in SeqExp was separated by semicolons while in CallExp it is separated by commas. 
