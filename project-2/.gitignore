@@ -1,0 +1,6 @@
+*.o
+tags
+parsetest
+*.swp
+*.swo
+*.out

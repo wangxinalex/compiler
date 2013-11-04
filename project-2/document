@@ -1,0 +1,11 @@
+/*========================================================================
+#   FileName: document
+#     Author: wangxinalex
+#      Email: wangxinalex@gmail.com
+#   HomePage: http://singo.10ss.me
+# LastChange: 2013-11-03 22:19:49
+========================================================================*/
+In this lab, we need to implement abstract syntax of Tiger language by adding some semantic actions in tiger.grm. This file gives some grammar rules by which the parser will reduce the language input. 
+Generally, the data structure of different syntax elements was defined in absyn.h. It comprises expressions, variables, declarations, expression lists, field lists and so on. We need to fill in these data structures according to different input sequence. 
+First we need to define these types in %union; put terminals in %token and define nonterminals in %type which are also the global variables in this file. The precedence directives will instruct the precedence and association of some operators.
+When defining syntax actions, we need to handle some subtle situations resulting from shift/reduce conflict. For instance, the Subscript variable and the array expressions since the parser always prefers to shift when facing a shift/reduce conflict, thus we need to put a rule which does not require a reduce to resolve the confilct otherwise the parser will reduce the subscript variable as an array expression and generate a syntax error. Some other conflicts was due to different syntax environments such as the expression list in SeqExp was separated by semicolons while in CallExp it is separated by commas. 
