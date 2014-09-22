@@ -14,6 +14,7 @@
 #define MAX_VAR 100
 
 int maxargs(A_stm prog,int *args);
+int maxargs_exp(A_exp exp, int *max);
 A_table interpStm(A_stm prog, A_table table);
 struct IntAndTable interpExp( A_exp exp, A_table table);
 int lookup(string s, A_table t);
@@ -31,8 +32,8 @@ int maxargs(A_stm prog, int *max){
 	}else if(prog->kind == A_assignStm){
 		if(prog->u.assign.exp->kind == A_eseqExp){
 	//recursively handle the statements in eseqExp
-			A_stm ex_prog = prog->u.assign.exp->u.eseq.stm;
-			maxargs(ex_prog, max);
+			A_exp prog_exp = prog->u.assign.exp;
+			maxargs_exp(prog_exp, max);
 		}
 	//print statements
 	}else if(prog->kind == A_printStm){
@@ -41,14 +42,24 @@ int maxargs(A_stm prog, int *max){
 			args++;
 	//recursively handle the statements in eseqExp
 			if(list->u.pair.head->kind == A_eseqExp){
-				A_stm ex_prog = list->u.pair.head->u.eseq.stm;
-				maxargs(ex_prog, max);
+				A_exp ex_prog = list->u.pair.head;
+				maxargs_exp(ex_prog, max);
 			}
 			list = list->u.pair.tail;
 		}
 		if(++args > *max){
 			*max = args;
 		}
+	}
+	return 0;
+}
+
+int maxargs_exp(A_exp exp, int *max){
+	if(exp->kind == A_eseqExp){
+		A_stm inner_stm = exp->u.eseq.stm;
+		A_exp inner_exp = exp->u.eseq.exp;
+		maxargs(inner_stm, max);
+		maxargs_exp(inner_exp, max);
 	}
 	return 0;
 }
